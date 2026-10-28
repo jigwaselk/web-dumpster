@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>a watch i guess</title>
+</head>
+<body>
+    <style>
+        body{
+            background-color: hsl(6, 31%, 17%);
+            color: white;
+            display: flex;
+            margin: 0;
+            height: 100vh;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1,h3{
+            margin: 2px;
+        }
+    </style>
+    <h1 id="watch">i i i i i</h1>
+    <h3 id="erid-stopwatch"></h3>
+
+    <script>
+        function toErid(n){
+            let nstr = n.toString(6);
+            let str = ""
+            for(let i = 0; i < nstr.length; i++){
+                str += rdict[nstr.charAt(i)]
+            }
+            return str
+        }
+        const rdict = {
+            0: "i",
+            1: "I",
+            2: "V",
+            3: "λ",
+            4: "+",
+            5: "∀"
+        }
+
+        const ctime = document.querySelector("#watch")
+        const easw = document.querySelector("#erid-stopwatch")
+        
+        let ticks = 0;
+
+        window.setInterval(() => {
+            ticks++;
+            ticks %= 7776; 
+
+            let disk4 = rdict[Math.floor(ticks / 1296) % 6]
+            let disk3 = rdict[Math.floor(ticks / 216) % 6]
+            let disk2 = rdict[Math.floor(ticks / 36) % 6]
+            let disk1 = rdict[Math.floor(ticks / 6) % 6]
+            let disk0 = rdict[ticks % 6]
+            ctime.textContent = `${disk4} ${disk3} ${disk2} ${disk1} ${disk0} `
+            easw.textContent = `Total time: ${toErid(ticks)}`
+        }, 2366)
+    </script>
+</body>
+</html>
